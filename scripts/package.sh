@@ -1,0 +1,16 @@
+#!/bin/zsh
+set -euo pipefail
+cd "${0:A:h}/.."
+mkdir -p "$PWD/release" "$PWD/Deliverables"
+PACKAGE_ROOT="$(mktemp -d "$PWD/release/package.XXXXXX")"
+STAGE="$PACKAGE_ROOT/剪贴花园-1.0"
+mkdir -p "$STAGE/源码" "$STAGE/合成截图"
+ditto "build/剪贴花园.app" "$STAGE/剪贴花园.app"
+cp README.md 使用说明.txt "$STAGE/"
+cp -R Sources Resources scripts docs .gitignore "$STAGE/源码/"
+cp README.md 使用说明.txt "$STAGE/源码/"
+cp docs/screenshots/*.png "$STAGE/合成截图/"
+codesign --verify --deep --strict "$STAGE/剪贴花园.app"
+ditto -c -k --sequesterRsrc --keepParent "$STAGE" "$PWD/Deliverables/剪贴花园-1.0-AppleSilicon.zip"
+shasum -a 256 "$PWD/Deliverables/剪贴花园-1.0-AppleSilicon.zip" > "$PWD/Deliverables/SHA256.txt"
+printf 'Packaged: %s\n' "$PWD/Deliverables/剪贴花园-1.0-AppleSilicon.zip"

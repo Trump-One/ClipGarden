@@ -1,0 +1,17 @@
+import AppKit
+let image = NSImage(size: NSSize(width: 1024,height: 1024))
+image.lockFocus()
+let ink = NSColor(calibratedRed: 0.19,green: 0.24,blue: 0.22,alpha: 1)
+let mint = NSColor(calibratedRed: 0.77,green: 0.88,blue: 0.82,alpha: 1)
+let cream = NSColor(calibratedRed: 0.98,green: 0.96,blue: 0.90,alpha: 1)
+cream.setFill(); NSBezierPath(roundedRect: NSRect(x: 35,y: 35,width: 954,height: 954),xRadius: 215,yRadius: 215).fill()
+let body = NSBezierPath(roundedRect: NSRect(x: 230,y: 172,width: 565,height: 660),xRadius: 130,yRadius: 130)
+mint.setFill(); body.fill(); ink.setStroke(); body.lineWidth = 20; body.stroke()
+let clip = NSBezierPath(roundedRect: NSRect(x: 370,y: 766,width: 285,height: 112),xRadius: 42,yRadius: 42)
+cream.setFill(); clip.fill(); clip.lineWidth = 20; clip.stroke()
+ink.setFill(); NSBezierPath(ovalIn: NSRect(x: 387,y: 495,width: 34,height: 49)).fill(); NSBezierPath(ovalIn: NSRect(x: 605,y: 495,width: 34,height: 49)).fill()
+let smile = NSBezierPath(); smile.move(to: NSPoint(x: 445,y: 425)); smile.curve(to: NSPoint(x: 580,y: 425),controlPoint1: NSPoint(x: 465,y: 355),controlPoint2: NSPoint(x: 560,y: 355)); smile.lineWidth = 20; smile.lineCapStyle = .round; smile.stroke()
+NSColor(calibratedRed: 1,green: 0.69,blue: 0.53,alpha: 1).setFill(); NSBezierPath(ovalIn: NSRect(x: 322,y: 434,width: 77,height: 40)).fill(); NSBezierPath(ovalIn: NSRect(x: 628,y: 434,width: 77,height: 40)).fill()
+image.unlockFocus()
+let rep = NSBitmapImageRep(data: image.tiffRepresentation!)!
+try rep.representation(using: .png,properties: [:])!.write(to: URL(fileURLWithPath: CommandLine.arguments[1]))

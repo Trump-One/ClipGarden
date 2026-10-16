@@ -1,0 +1,31 @@
+# Local build and packaging output
+.build-cache/
+build/
+release/
+verify/
+Deliverables/
+.swiftpm/
+.build/
+DerivedData/
+
+# Clipboard data and local credentials
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.sqlite3-*
+*.db
+*.db-*
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.mobileprovision
+
+# Machine-specific files and logs
+.DS_Store
+.AppleDouble/
+._*
+*.log
+*.xcuserstate
+xcuserdata/
